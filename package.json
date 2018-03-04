@@ -5,10 +5,16 @@
   "main": "index.js",
   "scripts": {
     "prod": "webpack -p",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --open"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Alex Rosa",
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
   "dependencies": {
     "axios": "^0.15.3",
     "react": "^15.4.2",
@@ -16,11 +22,14 @@
     "react-router": "^3.0.2"
   },
   "devDependencies": {
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
-    "babel-preset-react": "^6.22.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.10",
     "html-webpack-plugin": "^2.28.0",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.3"
+    "style-loader": "^0.20.2",
+    "webpack": "^2.3.1",
+    "webpack-dev-server": "^2.11.2"
   }
 }
