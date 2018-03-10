@@ -1,10 +1,9 @@
 import axios from 'axios';
 
-const apiCall = {
+export default {
   fetchPopularRepos: (language) => {
-    let encodedURI = window.encodedURI(`https://api.github.com/search/repositories?
-      q=starts:>1+language:${language}&sort=stars&order=desc&type=Repositories`);
+    const encodedURI = window.encodeURI(`https://api.github.com/search/repositories?q=starts:>1+language:${language}&sort=stars&order=desc&type=Repositories`);
+    return axios.get(encodedURI)
+      .then(response => response.data.items);
   },
 };
-
-export default apiCall;
