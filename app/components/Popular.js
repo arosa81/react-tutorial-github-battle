@@ -7,7 +7,6 @@ function SelectLanguage(props) {
 
   return (
     <ul className="languages">
-      <p>Selected Language: {props.selectedLanguage}</p>
       {languages.map(lang => (
         <li
           style={lang === props.selectedLanguage ? { color: '#d0021b' } : null}
