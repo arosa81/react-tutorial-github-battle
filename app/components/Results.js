@@ -1,23 +1,22 @@
-const React = require('react');
-const PropTypes = React.PropTypes;
-const ReactRouter = require('react-router');
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function puke(obj) {
-    return <pre>{JSON.stringify(obj, null, ' ')}</pre>
+  return (<pre>{JSON.stringify(obj, null, ' ')}</pre>);
 }
 
 function Results(props) {
-    return (
-        <div>
-            Results
-        </div>
-    )
+  return (
+    <div>
+      Results
+    </div>
+  );
 }
 
 Results.propTypes = {
-    isLoading: PropTypes.bool.isRequired,
-    playersInfo: PropTypes.array.isRequired,
-    scores: PropTypes.array.isRequired
-}
+  isLoading: PropTypes.bool.isRequired,
+  playersInfo: PropTypes.array.isRequired,
+  scores: PropTypes.array.isRequired,
+};
 
-module.exports = Results;
+export default Results;
