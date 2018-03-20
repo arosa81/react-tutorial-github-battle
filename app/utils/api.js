@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const id = 'YOUR_CLIENT_ID';
-const sec = 'YOUR_SECRET_ID';
+const id = '4cfd29f6441edc142323';
+const sec = '3491f8b5ebbd0f9f31e9d172b7f842f3462c5caf';
 const params = `?client_id=${id}&client_secret=${sec}`;
 
 const getProfile = (username) => {
@@ -26,9 +26,9 @@ const calculateScore = (profile, repos) => {
   return (followers * 3) + totalStars;
 };
 
-const getUserData = (player) => {
-  return Promise.all([getProfile(player), getRepos(player)])
-    .then((data) => {
+function getUserData(player) {
+  return axios.all([getProfile(player), getRepos(player)])
+    .then(function (data) {
       const profile = data[0];
       const repos = data[1];
       return {
@@ -36,7 +36,7 @@ const getUserData = (player) => {
         score: calculateScore(profile, repos),
       };
     });
-};
+}
 
 const sortPlayers = (players) => {
   players.sort((a, b) => (b.score - a.score));
