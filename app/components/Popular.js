@@ -73,8 +73,6 @@ class Popular extends Component {
 
     api.fetchPopularRepos(lang)
       .then(repos => (this.setState(() => ({ repos }))));
-
-    console.log('repo state: ', this.state.repos);
   }
 
   render() {

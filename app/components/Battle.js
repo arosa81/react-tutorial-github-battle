@@ -83,7 +83,7 @@ PlayerInput.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
-}
+};
 
 class Battle extends Component {
   constructor(props) {

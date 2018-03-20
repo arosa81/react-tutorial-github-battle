@@ -1,12 +1,16 @@
 import axios from 'axios';
 
+const id = 'YOUR_CLIENT_ID';
+const sec = 'YOUR_SECRET_ID';
+const params = `?client_id=${id}&client_secret=${sec}`;
+
 const getProfile = (username) => {
-  axios.get(`https://api.github.com/users/${username}`)
+  axios.get(`https://api.github.com/users/${username}${params}`)
     .then(user => user.data);
 };
 
 const getRepos = (username) => {
-  axios.get(`https://api.github.com/users/${username}/repos&per_page=100`)
+  axios.get(`https://api.github.com/users/${username}/repos${params}&per_page=10`)
     .then(repo => repo.data);
 };
 
@@ -23,17 +27,15 @@ const calculateScore = (profile, repos) => {
 };
 
 const getUserData = (player) => {
-  axios.all([
-    getProfile(player),
-    getRepos(player),
-  ]).then((data) => {
-    const profile = data[0];
-    const repos = data[1];
-    return {
-      profile,
-      score: calculateScore(profile, repos),
-    };
-  });
+  return Promise.all([getProfile(player), getRepos(player)])
+    .then((data) => {
+      const profile = data[0];
+      const repos = data[1];
+      return {
+        profile,
+        score: calculateScore(profile, repos),
+      };
+    });
 };
 
 const sortPlayers = (players) => {
@@ -47,7 +49,7 @@ const handleError = (error) => {
 
 export default {
   battle: (players) => {
-    axios.all(players.map(getUserData))
+    return axios.all(players.map(getUserData))
       .then(sortPlayers)
       .catch(handleError);
   },
