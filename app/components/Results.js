@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import api from '../utils/api';
 import PlayerPreview from './PlayerPreview';
+import Loading from './Loading';
 
 function Profile(props) {
   const { info } = props;
+
   return (
     <PlayerPreview
-      avatar={info.avatar.url}
-      username={info.login}
+      avatar={info.avatar_url}
+      userName={info.login}
     >
       <ul className="space-list-items">
         {info.name && <li>{info.name}</li>}
@@ -24,6 +26,10 @@ function Profile(props) {
     </PlayerPreview>
   );
 }
+
+Profile.propTypes = {
+  info: PropTypes.object.isRequired,
+};
 
 function Player(props) {
   return (
@@ -55,23 +61,23 @@ class Results extends Component {
   componentDidMount() {
     const { location } = this.props;
     const players = queryString.parse(location.search);
-    console.log(players);
+
     api.battle([players.playerOneName, players.playerTwoName])
-      .then((results) => {
+      .then(function (results) {
         if (results === null) {
           return this.setState(() => ({
             error: 'Looks like there was an error. Check that both users exist on Github',
             loading: false,
           }));
         }
-
         return this.setState(() => ({
           error: null,
           winner: results[0],
           loser: results[1],
           loading: false,
         }));
-      });
+      }.bind(this))
+      .catch(error => console.log(error));
   }
 
   render() {
@@ -79,7 +85,7 @@ class Results extends Component {
 
     return (
       <div>
-        {loading && <p>loading</p>}
+        {loading && <Loading />}
         {error &&
           <div>
             <p>{error}</p>
