@@ -52,5 +52,4 @@ Loading.defaultProps = {
   speed: 300,
 };
 
-
 export default Loading;

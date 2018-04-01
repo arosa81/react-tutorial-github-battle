@@ -1,5 +1,5 @@
 {
-    "presets": [
-        "react"
-    ]
+    "projects": {
+      "default": "rt-react-fundamentals"
+    }
 }

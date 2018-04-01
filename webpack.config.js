@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
-module.exports = {
+const config = {
   entry: './app/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -10,8 +11,15 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.(js)$/, use: 'babel-loader' },
-      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      { test: /\.css$/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   devServer: {
@@ -23,3 +31,15 @@ module.exports = {
     }),
   ],
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
+    }),
+    new webpack.optimize.UglifyJsPlugin());
+}
+
+module.exports = config;
